@@ -8,7 +8,7 @@ namespace PastaWin
 {
     public class Vector2
     {
-        public int x; //atrbutos
+        public int x; //atributos
         public int y;
 
         public Vector2(int x, int y) //construtor

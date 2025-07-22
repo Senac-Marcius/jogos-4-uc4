@@ -7,74 +7,75 @@ using System.Threading.Tasks;
 
 namespace PastaWin
 {
-    class GameManager
+    class GameManager : MonoBehaviour
     {
         private static GameManager instancia;
 
-        private GameManager() { }
+        private GameManager() { 
+            Run();
+        }
 
         public static GameManager Instance => instancia ??= new GameManager();
 
-        public bool jogando;
+        public bool jogando = false;
 
-        public void Start()
+        public override void Update()
         {
-            Console.Clear();
-
-            menu();
+            if (!jogando)
+            {
+                menu();
+            }
         }
 
         public void menu()
         {
-            var tecla = ConsoleKey.A;
+            Console.Clear();
+            Console.WriteLine("""
+                        Bem vindo ao Jogo da UC4
 
-            do
+                        Começar (Tecla J)
+                        Créditos (Tecla C)
+                        Sair (Tecla ESC)
+
+                    """);
+
+            var tecla = Console.ReadKey(true).Key;
+
+            switch (tecla)
             {
-                Console.Clear();
-                Console.WriteLine("""
-                    Bem vindo ao Jogo da UC4
+                case ConsoleKey.J:
+                    jogar();
+                    jogando = true;
+                    break;
+                case ConsoleKey.C:
+                    Console.WriteLine("Jogo criado pelo professor Marcius na UC4 de jogos.");
+                    break;
+                case ConsoleKey.Escape:
+                    Stop();
+                    break;
+            }
 
-                    Começar (Tecla J)
-                    Créditos (Tecla C)
-                    Sair (Tecla ESC)
+        }
 
-                """);
-
-                tecla = Console.ReadKey(true).Key;
-
-                switch (tecla)
-                {
-                    case ConsoleKey.J:
-                        jogando = true;
-                        jogar();
-                        break;
-                    case ConsoleKey.C:
-                        Console.WriteLine("Jogo criado pelo professor Marcius na UC4 de jogos.");
-                        break;
-                }
-
-            } while (tecla != ConsoleKey.Escape);
+        public override void OnDestroy()
+        {
+            Console.Clear();
+            Console.WriteLine("Obrigado por jogar!");
+            Console.WriteLine("Pressione qualquer tecla para sair...");
+            var tecla = Console.ReadKey(true);
+            Environment.Exit(0);
         }
 
         public void jogar()
         {
+            Console.Clear();
+
             Mapa.Instancia.largura = 40;
             Mapa.Instancia.altura = 20;
 
             Mapa.Instancia.iniciarMapa();
             
             Player p1 = new Player();
-
-            while (jogando)
-            {
-                Console.SetCursorPosition(0, 0);
-                Mapa.Instancia.DesenharMapa();
-                p1.DesenhaPlayer();
-
-                var tecla = Console.ReadKey(true).Key;
-
-                p1.AtualizarPosicao(tecla);
-            }
         }
     }
 }

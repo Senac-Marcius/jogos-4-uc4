@@ -6,11 +6,12 @@ using System.Threading.Tasks;
 
 namespace PastaWin
 {
-    class Mapa
+    class Mapa : MonoBehaviour
     {
         private static Mapa instancia { get; set; }
 
-        private Mapa() { 
+        private Mapa() {
+            Run();
         }
 
         public static Mapa Instancia => instancia ??= new Mapa();
@@ -40,21 +41,29 @@ namespace PastaWin
                     }
                 }
             }
+
+            DesenharMapa();
         }
 
 
         public void DesenharMapa()
         {
+            Console.SetCursorPosition(0, 0);
+
             for (int y = 0; y < altura; y++)
             {
                 for (int x = 0; x < largura; x++)
                 {
-                    Console.Write(mapa[x, y]);
+                    Console.Write(mapa[x, y]);    
                 }
                 Console.WriteLine();
             }
         }
 
+        public override void Start()
+        {
+            iniciarMapa();
+        }
 
 
     }

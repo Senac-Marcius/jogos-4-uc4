@@ -6,11 +6,13 @@ using System.Threading.Tasks;
 
 namespace PastaWin
 {
-    class Player
+    class Player : MonoBehaviour
     {
         Vector2 pos = new Vector2(1, 1);
 
-        public Player() { }
+        public Player() { 
+            Run();  
+        }
 
         public void AtualizarPosicao(ConsoleKey tecla)
         {
@@ -33,6 +35,11 @@ namespace PastaWin
                 case ConsoleKey.S:
                     y = pos.Down;
                     break;
+                case ConsoleKey.M:
+                    GameManager.Instance.jogando = false;
+                    Mapa.Instancia.Stop();
+                    Stop();
+                    break;
             }
 
             if (Mapa.Instancia.mapa[x, y] == '#')
@@ -41,6 +48,19 @@ namespace PastaWin
                 pos.y = oldY;
             }
 
+        }
+
+        public override void Update()
+        {
+            Mapa.Instancia.DesenharMapa();
+            DesenhaPlayer();
+        }
+
+        public override void LateUpdate()
+        {
+            var tecla = Console.ReadKey(true).Key;
+
+            AtualizarPosicao(tecla);
         }
 
 
