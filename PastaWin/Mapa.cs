@@ -41,12 +41,10 @@ namespace PastaWin
                     }
                 }
             }
-
-            DesenharMapa();
         }
 
 
-        public void DesenharMapa()
+        public override void Draw()
         {
             Console.SetCursorPosition(0, 0);
 

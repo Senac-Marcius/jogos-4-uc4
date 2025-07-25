@@ -17,44 +17,13 @@ namespace PastaWin
 
         public static GameManager Instance => instancia ??= new GameManager();
 
-        public bool jogando = false;
+        public Mapa map;
+        public Player pl;
+        public Menu nemo;
 
         public override void Update()
         {
-            if (!jogando)
-            {
-                menu();
-            }
-        }
-
-        public void menu()
-        {
-            Console.Clear();
-            Console.WriteLine("""
-                        Bem vindo ao Jogo da UC4
-
-                        Começar (Tecla J)
-                        Créditos (Tecla C)
-                        Sair (Tecla ESC)
-
-                    """);
-
-            var tecla = Console.ReadKey(true).Key;
-
-            switch (tecla)
-            {
-                case ConsoleKey.J:
-                    jogar();
-                    jogando = true;
-                    break;
-                case ConsoleKey.C:
-                    Console.WriteLine("Jogo criado pelo professor Marcius na UC4 de jogos.");
-                    break;
-                case ConsoleKey.Escape:
-                    Stop();
-                    break;
-            }
-
+            Draw();
         }
 
         public override void OnDestroy()
@@ -66,16 +35,17 @@ namespace PastaWin
             Environment.Exit(0);
         }
 
-        public void jogar()
+        public override void Start()
         {
-            Console.Clear();
-
-            Mapa.Instancia.largura = 40;
-            Mapa.Instancia.altura = 20;
-
-            Mapa.Instancia.iniciarMapa();
-            
-            Player p1 = new Player();
+            nemo = Menu.Instancia;
+            nemo.visible = true;
+            nemo.input = true;
         }
-    }
+
+        public override void Draw()
+        {
+            if(map.visible) map.Draw();
+            if (pl.visible)  pl.Draw();
+            if (nemo.visible)  nemo.Draw();
+        }
 }

@@ -52,8 +52,8 @@ namespace PastaWin
 
         public override void Update()
         {
-            Mapa.Instancia.DesenharMapa();
-            DesenhaPlayer();
+           
+          
         }
 
         public override void LateUpdate()
@@ -64,7 +64,7 @@ namespace PastaWin
         }
 
 
-        public void DesenhaPlayer()
+        public override void Draw()
         {
             Console.SetCursorPosition(pos.x, pos.y);
             Console.Write('@');

@@ -9,6 +9,9 @@ namespace PastaWin
         private Thread t;
         private bool ativo = true;
 
+        public bool visible = false;
+        public bool input = false;
+
         public void Run()
         {
             Awake();
@@ -40,6 +43,8 @@ namespace PastaWin
         public virtual void Update() { }
         public virtual void LateUpdate() { }
         public virtual void OnDestroy() { }
+
+        public abstract void Draw();
 
     }
 }
