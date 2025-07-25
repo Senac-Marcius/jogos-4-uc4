@@ -18,13 +18,17 @@ namespace PastaWin
 
         public override void Update()
         {
+            if (!input) return;
+
             var tecla = Console.ReadKey(true).Key;
 
             switch (tecla)
             {
                 case ConsoleKey.J:
+                    GameManager.Instance.map = Mapa.Instancia;
                     GameManager.Instance.map.visible = true;
 
+                    GameManager.Instance.pl = new Player();
                     GameManager.Instance.pl.visible = true;
                     GameManager.Instance.pl.input = true;
 

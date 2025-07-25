@@ -11,7 +11,8 @@ namespace PastaWin
     {
         private static GameManager instancia;
 
-        private GameManager() { 
+        private GameManager()
+        {
             Run();
         }
 
@@ -42,10 +43,12 @@ namespace PastaWin
             nemo.input = true;
         }
 
+        //nivel escrita retorno nome()
         public override void Draw()
         {
-            if(map.visible) map.Draw();
-            if (pl.visible)  pl.Draw();
-            if (nemo.visible)  nemo.Draw();
+            if (map != null && map.visible) map.Draw();
+            if (pl != null && pl.visible) pl.Draw();
+            if (nemo != null && nemo.visible) nemo.Draw();
         }
+    }
 }

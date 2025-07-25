@@ -9,11 +9,9 @@ namespace PastaWin
     class Mapa : MonoBehaviour
     {
         private static Mapa instancia { get; set; }
-
         private Mapa() {
             Run();
         }
-
         public static Mapa Instancia => instancia ??= new Mapa();
 
 
@@ -24,6 +22,7 @@ namespace PastaWin
 
         public void iniciarMapa()
         {
+            Console.Clear();
             mapa = new char[largura, altura];
 
             for (int y = 0; y < altura; y++)

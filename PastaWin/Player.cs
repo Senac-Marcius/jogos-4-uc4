@@ -16,6 +16,7 @@ namespace PastaWin
 
         public void AtualizarPosicao(ConsoleKey tecla)
         {
+            if (!input) return;
             int oldX = pos.x;
             int oldY = pos.y;
             int x = pos.x;
@@ -36,8 +37,14 @@ namespace PastaWin
                     y = pos.Down;
                     break;
                 case ConsoleKey.M:
-                    GameManager.Instance.jogando = false;
-                    Mapa.Instancia.Stop();
+                    GameManager.Instance.map = Mapa.Instancia;
+                    GameManager.Instance.map.visible = false;
+
+                    GameManager.Instance.nemo.visible = true;
+                    GameManager.Instance.nemo.input = true;
+
+                    visible = false;
+                    input = false;
                     Stop();
                     break;
             }
@@ -52,12 +59,8 @@ namespace PastaWin
 
         public override void Update()
         {
-           
-          
-        }
+            if (!input) return;
 
-        public override void LateUpdate()
-        {
             var tecla = Console.ReadKey(true).Key;
 
             AtualizarPosicao(tecla);
