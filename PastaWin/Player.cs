@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace PastaWin
 {
-    class Player : MonoBehaviour
+    public class Player : MonoBehaviour
     {
-        Vector2 pos = new Vector2(1, 1);
+        public Vector2 pos = new Vector2(1, 1);
 
         public Player() { 
             Run();  

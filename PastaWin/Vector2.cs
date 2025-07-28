@@ -36,5 +36,19 @@ namespace PastaWin
             );
         }
 
+        public override string ToString()
+        {
+            return $"({x}, {y})";
+        }
+
+        public static Vector2 FromString(string data)
+        {
+            var clean = data.Trim('(', ')');
+            var parts = clean.Split(',');
+            int x = int.Parse(parts[0]);
+            int y = int.Parse(parts[1]);
+            return new Vector2(x, y);
+        }
+
     }
 }

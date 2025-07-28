@@ -6,6 +6,7 @@ namespace PastaWin
     {
         static void Main()
         {
+            Console.CursorVisible = false;
             GameManager.Instance.Start();      
         }
     }

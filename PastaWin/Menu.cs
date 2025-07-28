@@ -9,6 +9,7 @@ namespace PastaWin
     public class Menu : MonoBehaviour
     {
         private static Menu instancia { get; set; }
+        private JogoSalvo jogo;
         private Menu()
         {
             Run();
@@ -24,7 +25,7 @@ namespace PastaWin
 
             switch (tecla)
             {
-                case ConsoleKey.J:
+                case ConsoleKey.N:
                     GameManager.Instance.map = Mapa.Instancia;
                     GameManager.Instance.map.visible = true;
 
@@ -38,6 +39,26 @@ namespace PastaWin
                 case ConsoleKey.C:
                     Console.WriteLine("Jogo criado pelo professor Marcius na UC4 de jogos.");
                     break;
+                case ConsoleKey.S:
+                    jogo = new JogoSalvo
+                    {
+                        Jogador = GameManager.Instance.pl,
+                        MapaAtual = GameManager.Instance.map
+                    };
+                    SaveGame.Save(jogo);
+                    break;
+                case ConsoleKey.L:
+                    jogo = SaveGame.Load<JogoSalvo>();
+                    GameManager.Instance.map = jogo.MapaAtual;
+                    GameManager.Instance.map.visible = true;
+
+                    GameManager.Instance.pl = jogo.Jogador;
+                    GameManager.Instance.pl.visible = true;
+                    GameManager.Instance.pl.input = true;
+
+                    GameManager.Instance.nemo.visible = false;
+                    GameManager.Instance.nemo.input = false;
+                    break;
                 case ConsoleKey.Escape:
                     Stop();
                     break;
@@ -50,7 +71,9 @@ namespace PastaWin
             Console.WriteLine("""
                 Bem vindo ao Jogo da UC4
 
-                Começar (Tecla J)
+                Novo (Tecla N)
+                Continuar (Tecla L)
+                Salvar (Tecla S)
                 Créditos (Tecla C)
                 Sair (Tecla ESC)
 
